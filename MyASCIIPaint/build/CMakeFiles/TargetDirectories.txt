@@ -1,0 +1,3 @@
+C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/CMakeFiles/ascii_paint.dir
+C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/CMakeFiles/edit_cache.dir
+C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,20 @@
++==========================================================+
+|          OOOOO                        *############*     |
+|    OOOOOOOOOOOOOOOOO                 *#           *#     |
+|  OOOOOOOOOOOOOOOOOOOOO              * ##########**##     |
+| OOOOOOOOOOOOOOOOOOOOOOO            *           *         |
+|OOOOOOOOOOOOOOOOOOOOOOOOO          *           *          |
+| OOOOOOOOOOOOOOOOOOOOOOO          *           *           |
+|  OOOOOOOOOOOOOOOOOOOOO          *           *            |
+|    OOOOOOOOOOOOOOOOO           *          **             |
+|          OOOOO                 *         *               |
+|                               *         *                |
+|                              *         *                 |
+|                        #####*#########*                  |
+|                        #   *        **#                  |
+|                        #  *        *  #                  |
+|                        # *        *   #                  |
+|                        #*########*#####                  |
+|                                                          |
+|                                                          |
++==========================================================+
