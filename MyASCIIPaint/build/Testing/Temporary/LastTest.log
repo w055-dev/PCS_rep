@@ -1,0 +1,263 @@
+Start testing: May 30 13:19 RTZ 2 (зима)
+----------------------------------------------------------
+1/13 Testing: test_cell
+1/13 Test: test_cell
+Command: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/bin/test_cell.exe"
+Directory: C:/Users/Talent/Desktop/PCS_rep/MYASCIIPaint/build
+"test_cell" start time: May 30 13:19 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Randomness seeded to: 3433754193
+===============================================================================
+All tests passed (16 assertions in 5 test cases)
+
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"test_cell" end time: May 30 13:19 RTZ 2 (зима)
+"test_cell" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/13 Testing: test_color
+2/13 Test: test_color
+Command: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/bin/test_color.exe"
+Directory: C:/Users/Talent/Desktop/PCS_rep/MYASCIIPaint/build
+"test_color" start time: May 30 13:19 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Randomness seeded to: 3764405944
+===============================================================================
+All tests passed (30 assertions in 8 test cases)
+
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"test_color" end time: May 30 13:19 RTZ 2 (зима)
+"test_color" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/13 Testing: test_layer
+3/13 Test: test_layer
+Command: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/bin/test_layer.exe"
+Directory: C:/Users/Talent/Desktop/PCS_rep/MYASCIIPaint/build
+"test_layer" start time: May 30 13:19 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Randomness seeded to: 433904037
+===============================================================================
+All tests passed (23 assertions in 7 test cases)
+
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"test_layer" end time: May 30 13:19 RTZ 2 (зима)
+"test_layer" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/13 Testing: test_canvas
+4/13 Test: test_canvas
+Command: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/bin/test_canvas.exe"
+Directory: C:/Users/Talent/Desktop/PCS_rep/MYASCIIPaint/build
+"test_canvas" start time: May 30 13:19 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Randomness seeded to: 1478378031
+[36m+===+[0m
+[36m|[37m   [36m|[0m
+[36m|[37m   [36m|[0m
+[36m|[37m   [36m|[0m
+[36m+===+[0m
+[36m+===+[0m
+[36m|[37m   [36m|[0m
+[36m|[37m   [36m|[0m
+[36m|[37m   [36m|[0m
+[36m+===+[0m
+[3;3H[7m [0m===============================================================================
+All tests passed (14 assertions in 7 test cases)
+
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"test_canvas" end time: May 30 13:19 RTZ 2 (зима)
+"test_canvas" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/13 Testing: test_commands
+5/13 Test: test_commands
+Command: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/bin/test_commands.exe"
+Directory: C:/Users/Talent/Desktop/PCS_rep/MYASCIIPaint/build
+"test_commands" start time: May 30 13:19 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Randomness seeded to: 3813219704
+===============================================================================
+All tests passed (12 assertions in 7 test cases)
+
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_commands" end time: May 30 13:19 RTZ 2 (зима)
+"test_commands" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/13 Testing: test_history
+6/13 Test: test_history
+Command: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/bin/test_history.exe"
+Directory: C:/Users/Talent/Desktop/PCS_rep/MYASCIIPaint/build
+"test_history" start time: May 30 13:19 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Randomness seeded to: 616985414
+===============================================================================
+All tests passed (18 assertions in 6 test cases)
+
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"test_history" end time: May 30 13:19 RTZ 2 (зима)
+"test_history" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/13 Testing: test_tools
+7/13 Test: test_tools
+Command: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/bin/test_tools.exe"
+Directory: C:/Users/Talent/Desktop/PCS_rep/MYASCIIPaint/build
+"test_tools" start time: May 30 13:19 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Randomness seeded to: 2575758968
+===============================================================================
+All tests passed (8 assertions in 7 test cases)
+
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"test_tools" end time: May 30 13:19 RTZ 2 (зима)
+"test_tools" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/13 Testing: test_exporters
+8/13 Test: test_exporters
+Command: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/bin/test_exporters.exe"
+Directory: C:/Users/Talent/Desktop/PCS_rep/MYASCIIPaint/build
+"test_exporters" start time: May 30 13:19 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Randomness seeded to: 558628291
+[ASCP] Saved project to test.ascp
+[ASCP] Saved project to test.ascp
+===============================================================================
+All tests passed (21 assertions in 7 test cases)
+
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"test_exporters" end time: May 30 13:19 RTZ 2 (зима)
+"test_exporters" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/13 Testing: scenario_drawing
+9/13 Test: scenario_drawing
+Command: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/bin/scenario_drawing.exe"
+Directory: C:/Users/Talent/Desktop/PCS_rep/MYASCIIPaint/build
+"scenario_drawing" start time: May 30 13:19 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Randomness seeded to: 2346697075
+===============================================================================
+All tests passed (54 assertions in 1 test case)
+
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"scenario_drawing" end time: May 30 13:19 RTZ 2 (зима)
+"scenario_drawing" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/13 Testing: scenario_history
+10/13 Test: scenario_history
+Command: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/bin/scenario_history.exe"
+Directory: C:/Users/Talent/Desktop/PCS_rep/MYASCIIPaint/build
+"scenario_history" start time: May 30 13:19 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Randomness seeded to: 2832601315
+===============================================================================
+All tests passed (4 assertions in 1 test case)
+
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"scenario_history" end time: May 30 13:19 RTZ 2 (зима)
+"scenario_history" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/13 Testing: scenario_undo_redo
+11/13 Test: scenario_undo_redo
+Command: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/bin/scenario_undo_redo.exe"
+Directory: C:/Users/Talent/Desktop/PCS_rep/MYASCIIPaint/build
+"scenario_undo_redo" start time: May 30 13:19 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Randomness seeded to: 4290190478
+===============================================================================
+All tests passed (4 assertions in 1 test case)
+
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"scenario_undo_redo" end time: May 30 13:19 RTZ 2 (зима)
+"scenario_undo_redo" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/13 Testing: scenario_layers
+12/13 Test: scenario_layers
+Command: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/bin/scenario_layers.exe"
+Directory: C:/Users/Talent/Desktop/PCS_rep/MYASCIIPaint/build
+"scenario_layers" start time: May 30 13:19 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Randomness seeded to: 3299706274
+===============================================================================
+All tests passed (6 assertions in 1 test case)
+
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"scenario_layers" end time: May 30 13:19 RTZ 2 (зима)
+"scenario_layers" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/13 Testing: scenario_export
+13/13 Test: scenario_export
+Command: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/bin/scenario_export.exe"
+Directory: C:/Users/Talent/Desktop/PCS_rep/MYASCIIPaint/build
+"scenario_export" start time: May 30 13:19 RTZ 2 (зима)
+Output:
+----------------------------------------------------------
+Randomness seeded to: 3191929543
+[ASCP] Saved project to house.ascp
+===============================================================================
+All tests passed (11 assertions in 1 test case)
+
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"scenario_export" end time: May 30 13:19 RTZ 2 (зима)
+"scenario_export" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: May 30 13:19 RTZ 2 (зима)

@@ -1,0 +1,10 @@
+services:
+  ascii-paint:
+    image: ascii-paint
+    build: .
+    container_name: ascii-paint
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./output:/workspace
+    command: --help

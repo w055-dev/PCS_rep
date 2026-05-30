@@ -1,0 +1,14 @@
+test_cell 22 0.00210133
+test_color 12 0.00402618
+test_layer 22 0.00223731
+test_canvas 22 0.00211979
+test_commands 22 0.00197969
+test_history 20 0.00215249
+test_tools 22 0.00208115
+test_exporters 20 0.00320206
+scenario_undo_redo 22 0.00226648
+scenario_layers 22 0.0020516
+scenario_export 22 0.00276213
+scenario_drawing 5 0.00916508
+scenario_history 4 0.0114248
+---

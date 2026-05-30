@@ -603,3 +603,37 @@ events:
       Running the CXX compiler's linker: "C:/msys64/mingw64/x86_64-w64-mingw32/bin/ld.exe" "-v"
       GNU ld (GNU Binutils) 2.44
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckCXXCompilerFlag.cmake:55 (cmake_check_compiler_flag)"
+      - "build/_deps/catch2-src/CMake/CatchMiscFunctions.cmake:12 (check_cxx_compiler_flag)"
+      - "build/_deps/catch2-src/CMake/CatchMiscFunctions.cmake:119 (add_cxx_flag_if_supported_to_targets)"
+      - "build/_deps/catch2-src/src/CMakeLists.txt:342 (add_build_reproducibility_settings)"
+    checks:
+      - "Performing Test HAVE_FLAG__ffile_prefix_map_C__Users_Talent_Desktop_PCS_rep_MyASCIIPaint_build__deps_catch2_src__"
+    directories:
+      source: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/CMakeFiles/CMakeScratch/TryCompile-hkug99"
+      binary: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/CMakeFiles/CMakeScratch/TryCompile-hkug99"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/_deps/catch2-src/extras;C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/_deps/catch2-src/CMake"
+    buildResult:
+      variable: "HAVE_FLAG__ffile_prefix_map_C__Users_Talent_Desktop_PCS_rep_MyASCIIPaint_build__deps_catch2_src__"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/CMakeFiles/CMakeScratch/TryCompile-hkug99'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/ninja.exe -v cmTC_19cec
+        [1/2] C:\\msys64\\mingw64\\bin\\c++.exe -DHAVE_FLAG__ffile_prefix_map_C__Users_Talent_Desktop_PCS_rep_MyASCIIPaint_build__deps_catch2_src__  -std=c++17   -ffile-prefix-map=C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/_deps/catch2-src/= -o CMakeFiles/cmTC_19cec.dir/src.cxx.obj -c C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/CMakeFiles/CMakeScratch/TryCompile-hkug99/src.cxx
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\msys64\\mingw64\\bin\\c++.exe   CMakeFiles/cmTC_19cec.dir/src.cxx.obj -o cmTC_19cec.exe -Wl,--out-implib,libcmTC_19cec.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
+        
+      exitCode: 0
+...
