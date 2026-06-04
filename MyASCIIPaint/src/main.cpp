@@ -44,28 +44,36 @@ void drawCursorAt(int x, int y, Canvas& canvas) {
     }
 }
 
-void updateStatusOnly(int canvasHeight, const std::string& tool, 
-                      int cx, int cy, int undo, int redo, 
-                      const std::string& msg, int colorIdx, int layerIdx) {
+void updateStatusOnly(int canvasHeight, int canvasWidth, const std::string& tool, 
+                    int cx, int cy, int undo, int redo, 
+                    const std::string& msg, int colorIdx, int layerIdx) {
     int uiY = canvasHeight + 2;
     std::cout << "\033[" << uiY << ";1H\033[44m\033[97m" 
-              << " Tool: " << tool 
-              << " | Pos: (" << cx << "," << cy << ")"
-              << " | Color: " << colorNames[colorIdx]
-              << " | Layer: " << layerIdx
-              << " | U:" << undo << " R:" << redo
-              << "                                \033[0m";
+            << " Tool: " << tool 
+            << " | Pos: (" << cx << "," << cy << ")"
+            << " | Color: " << colorNames[colorIdx]
+            << " | Layer: " << layerIdx
+            << " | U:" << undo << " R:" << redo;
     
+    // Заполняем остаток строки пробелами для очистки
+    std::cout << "\033[K\033[0m";
+    
+    // Строка 2: Справка по горячим клавишам
     std::cout << "\033[" << (uiY + 1) << ";1H\033[93m"
-              << " 1-0=Color P/E/L/R/F/O/G=Tools []=Layers +/-=Add/Del"
-              << " | S=TXT A=ANSI C=CSV J=JSON V=Save I=Load"
-              << " | Z=Undo Y=Redo Q=Quit \033[0m";
+            << " 1-0=Color | P/E/L/R/F/O/G=Tools | []=Layers +/-=Add/Del"
+            << " | S=TXT A=ANSI C=CSV J=JSON V=Save I=Load | Z=Undo Y=Redo Q=Quit";
+    std::cout << "\033[K\033[0m";
     
+    // Строка 3: Сообщение
     std::cout << "\033[" << (uiY + 2) << ";1H\033[92m" 
-              << msg << "                                              \033[0m" << std::flush;
+            << msg;
+    std::cout << "\033[K\033[0m" << std::flush;
 }
 
 int main() {
+    //Сброс буфферизации
+    setvbuf(stdout, nullptr, _IONBF, 0);
+    setvbuf(stdin, nullptr, _IONBF, 0);
     #ifdef _WIN32
         HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
         DWORD mode = 0;
@@ -78,7 +86,7 @@ int main() {
 
     std::cout << "\033[H\033[2J=== MyASCIIPaint ===\n";
     
-    Canvas canvas(60, 20);
+    Canvas canvas(80, 25);
     HistoryManager* history = HistoryManager::getInstance();
 
     // Инструменты
@@ -109,19 +117,18 @@ int main() {
     // Начальная отрисовка
     renderCanvasOnly(canvas);
     drawCursorAt(cursorX, cursorY, canvas);
-    updateStatusOnly(canvas.getHeight(), currentTool->getName(), 
-                     cursorX, cursorY, history->getUndoStackSize(), 
-                     history->getRedoStackSize(), statusMsg, currentColorIdx, 
-                     canvas.getActiveLayerIndex());
+    updateStatusOnly(canvas.getHeight(), canvas.getWidth(),
+                    currentTool->getName(), 
+                    cursorX, cursorY, history->getUndoStackSize(), 
+                    history->getRedoStackSize(), statusMsg, currentColorIdx, 
+                    canvas.getActiveLayerIndex());
     std::cout << "\033[" << (cursorY + 1) << ";" << (cursorX + 1) << "H" << std::flush;
 
-    // ГЛАВНЫЙ ЦИКЛ (без мыши)
+    // ГЛАВНЫЙ ЦИКЛ
     while (running) {
         bool canvasChanged = false;
         std::string newStatus = "";
         bool statusChanged = false;
-
-        // УБРАНО: if (handleMouseEvent(...))
 
         int key = Terminal::getKey();
         if (key == 0) {
@@ -189,8 +196,14 @@ int main() {
                 break;
             
             case ' ': case '\n': {
+                if (cursorX <= 0 || cursorX >= canvas.getWidth() - 1 ||
+                    cursorY <= 0 || cursorY >= canvas.getHeight() - 1) {
+                    newStatus = "Cannot draw on borders!";
+                    statusChanged = true;
+                    break;
+                }
+                
                 if (awaitingSecondPoint) {
-                    // ВТОРАЯ точка
                     Command* cmd = currentTool->createCommand(&canvas, firstX, firstY, cursorX, cursorY);
                     if (cmd) { 
                         history->pushCommand(cmd); 
@@ -200,7 +213,6 @@ int main() {
                     newStatus = "Shape drawn!";
                     canvasChanged = true;
                 } else {
-                    // ПЕРВАЯ точка
                     std::string name = currentTool->getName();
                     
                     if (name == "Line" || name == "Rectangle" || name == "FilledRect" || name == "Ellipse") {
@@ -274,7 +286,6 @@ int main() {
                 if (ASCPImporter::validate("project.ascp")) {
                     Canvas* loaded = ASCPImporter::importFrom("project.ascp", history);
                     if (loaded) {
-                        // Копируем активный слой в текущий холст
                         Layer* src = loaded->getActiveLayer();
                         Layer* dst = canvas.getActiveLayer();
                         if (src && dst) {
@@ -301,19 +312,20 @@ int main() {
             }
         }
 
-        clearCursorAt(prevCursorX, prevCursorY, canvas);
+        // clearCursorAt(prevCursorX, prevCursorY, canvas);
         
         if (canvasChanged) {
             renderCanvasOnly(canvas);
         }
-        
+        clearCursorAt(prevCursorX, prevCursorY, canvas);
         if (statusChanged && !newStatus.empty()) {
-            updateStatusOnly(canvas.getHeight(), currentTool->getName(), 
-                           cursorX, cursorY, 
-                           history->getUndoStackSize(), 
-                           history->getRedoStackSize(), 
-                           newStatus, currentColorIdx, 
-                           canvas.getActiveLayerIndex());
+            updateStatusOnly(canvas.getHeight(), canvas.getWidth(), // ДОБАВЛЕН canvas.getWidth()
+                        currentTool->getName(), 
+                        cursorX, cursorY, 
+                        history->getUndoStackSize(), 
+                        history->getRedoStackSize(), 
+                        newStatus, currentColorIdx, 
+                        canvas.getActiveLayerIndex());
         }
         
         drawCursorAt(cursorX, cursorY, canvas);

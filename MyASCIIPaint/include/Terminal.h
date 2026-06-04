@@ -15,17 +15,22 @@
 #endif
 
 class Terminal {
+private:
+    static struct termios orig_termios;
+    
 public:
     static void enableRawMode();
     static void disableRawMode();
     static int getKey();
     static std::pair<int, int> getSize();
     static void clear();
+    static void clearLine();
     static void moveCursor(int x, int y);
     static void hideCursor();
     static void showCursor();
     static void saveCursorPosition();
     static void restoreCursorPosition();
+    static void setAlternateScreen(bool enable);
 };
 
 #endif

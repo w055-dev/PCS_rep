@@ -1,2 +1,8 @@
 .vs
 .dockerignore
+output
+.git
+.gitignore
+*.o
+*.a
+*.so

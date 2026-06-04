@@ -39,7 +39,6 @@ void Canvas::initializeWithGrid() {
 void Canvas::render() {
     Layer* activeLayer = getActiveLayer();
     if (!activeLayer) return;
-    
     // Композитный буфер
     std::vector<std::vector<Cell>> composite(height, std::vector<Cell>(width));
     
@@ -55,11 +54,13 @@ void Canvas::render() {
     
     // Вывод
     for (int y = 0; y < height; y++) {
-        Color lastFG = Color::White(), lastBG = Color::Black();
         for (int x = 0; x < width; x++) {
             Cell cell = composite[y][x];
-            if (cell.getForeground() != lastFG) { std::cout << cell.getForeground().toAnsi(); lastFG = cell.getForeground(); }
-            if (cell.getBackground() != lastBG) { std::cout << "\033[" << (cell.getBackground().getAnsiCode() + 10) << "m"; lastBG = cell.getBackground(); }
+            
+            // Всегда выводим цвет текста
+            std::cout << cell.getForeground().toAnsi();
+            // Всегда выводим цвет фона
+            std::cout << "\033[" << (cell.getBackground().getAnsiCode() + 10) << "m";
             std::cout << cell.getSymbol();
         }
         std::cout << "\033[0m\n";
