@@ -6,3 +6,5 @@ output
 *.o
 *.a
 *.so
+build/
+projects/

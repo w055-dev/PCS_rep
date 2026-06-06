@@ -21,3 +21,11 @@ bool Cell::equals(const Cell& other) const {
            foreground == other.foreground && 
            background == other.background;
 }
+
+std::string Cell::toAnsi() const {
+    return background.toAnsiBg() + foreground.toAnsi() + symbol + "\033[0m";
+}
+
+std::string Cell::toAnsiCursor() const {
+    return foreground.toAnsiBg() + background.toAnsi() + symbol + "\033[0m";
+}

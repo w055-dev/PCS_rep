@@ -7,6 +7,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include <algorithm>
 
 const Color colorPalette[] = {
     Color::Black(), Color::Red(), Color::Green(), Color::Yellow(), Color::Blue(), 
@@ -19,59 +20,46 @@ const char* colorNames[] = {
 };
 
 void renderCanvasOnly(Canvas& canvas) {
-    std::cout << "\033[H";
+    std::cout << "\033[2;1H";
     canvas.render();
     std::cout << std::flush;
 }
 
 void clearCursorAt(int x, int y, Canvas& canvas) {
-    Layer* layer = canvas.getActiveLayer();
-    if (layer) {
-        Cell cell = layer->getCell(x, y);
-        std::cout << "\033[" << (y + 1) << ";" << (x + 1) << "H";
-        std::cout << cell.getForeground().toAnsi();
-        std::cout << cell.getSymbol();
-        std::cout << "\033[0m";
-    }
+    Cell cell = canvas.getCompositeCell(x, y);
+    std::cout << "\033[" << (y + 2) << ";" << (x + 1) << "H";
+    std::cout << cell.toAnsi();
 }
 
 void drawCursorAt(int x, int y, Canvas& canvas) {
-    std::cout << "\033[" << (y + 1) << ";" << (x + 1) << "H";
-    Layer* layer = canvas.getActiveLayer();
-    if (layer) {
-        Cell cell = layer->getCell(x, y);
-        std::cout << "\033[7m" << cell.getSymbol() << "\033[0m";
-    }
+    Cell cell = canvas.getCompositeCell(x, y);
+    std::cout << "\033[" << (y + 2) << ";" << (x + 1) << "H";
+    std::cout << cell.toAnsiCursor();
 }
 
 void updateStatusOnly(int canvasHeight, int canvasWidth, const std::string& tool, 
                     int cx, int cy, int undo, int redo, 
                     const std::string& msg, int colorIdx, int layerIdx) {
-    int uiY = canvasHeight + 2;
+    int uiY = canvasHeight + 3;
     std::cout << "\033[" << uiY << ";1H\033[44m\033[97m" 
             << " Tool: " << tool 
             << " | Pos: (" << cx << "," << cy << ")"
             << " | Color: " << colorNames[colorIdx]
             << " | Layer: " << layerIdx
             << " | U:" << undo << " R:" << redo;
-    
-    // Заполняем остаток строки пробелами для очистки
     std::cout << "\033[K\033[0m";
     
-    // Строка 2: Справка по горячим клавишам
     std::cout << "\033[" << (uiY + 1) << ";1H\033[93m"
             << " 1-0=Color | P/E/L/R/F/O/G=Tools | []=Layers +/-=Add/Del"
             << " | S=TXT A=ANSI C=CSV J=JSON V=Save I=Load | Z=Undo Y=Redo Q=Quit";
     std::cout << "\033[K\033[0m";
     
-    // Строка 3: Сообщение
     std::cout << "\033[" << (uiY + 2) << ";1H\033[92m" 
             << msg;
     std::cout << "\033[K\033[0m" << std::flush;
 }
 
 int main() {
-    //Сброс буфферизации
     setvbuf(stdout, nullptr, _IONBF, 0);
     setvbuf(stdin, nullptr, _IONBF, 0);
     #ifdef _WIN32
@@ -84,9 +72,15 @@ int main() {
     Terminal::enableRawMode();
     struct Cleanup { ~Cleanup() { Terminal::disableRawMode(); } } cleanup;
 
-    std::cout << "\033[H\033[2J=== MyASCIIPaint ===\n";
+    //Фикс бага: Адаптация размера холста под размер терминала
+    auto [termWidth, termHeight] = Terminal::getSize();
+    int canvasWidth = std::min(80, termWidth);
+    int canvasHeight = std::min(25, termHeight - 5);  // -5 для заголовка + 3 строки статуса + отступ
     
-    Canvas canvas(80, 25);
+    std::cout << "\033[H\033[2J";  // Очистка экрана
+    std::cout << "\033[1;1H=== MyASCIIPaint (" << canvasWidth << "x" << canvasHeight << ") ===\033[K";
+    
+    Canvas canvas(canvasWidth, canvasHeight);
     HistoryManager* history = HistoryManager::getInstance();
 
     // Инструменты
@@ -116,13 +110,14 @@ int main() {
 
     // Начальная отрисовка
     renderCanvasOnly(canvas);
-    drawCursorAt(cursorX, cursorY, canvas);
     updateStatusOnly(canvas.getHeight(), canvas.getWidth(),
                     currentTool->getName(), 
                     cursorX, cursorY, history->getUndoStackSize(), 
                     history->getRedoStackSize(), statusMsg, currentColorIdx, 
                     canvas.getActiveLayerIndex());
-    std::cout << "\033[" << (cursorY + 1) << ";" << (cursorX + 1) << "H" << std::flush;
+    drawCursorAt(cursorX, cursorY, canvas);
+    // Позиционирование курсора терминала
+    std::cout << "\033[" << (cursorY + 2) << ";" << (cursorX + 1) << "H" << std::flush;
 
     // ГЛАВНЫЙ ЦИКЛ
     while (running) {
@@ -139,10 +134,10 @@ int main() {
         switch (key) {
             case 'q': case 'Q': running = false; break;
             
-            case 259: if (cursorY > 1) cursorY--; break;
-            case 258: if (cursorY < canvas.getHeight()-2) cursorY++; break;
-            case 260: if (cursorX > 1) cursorX--; break;
-            case 261: if (cursorX < canvas.getWidth()-2) cursorX++; break;
+            case 259: if (cursorY > 1) cursorY--; break;                      // стрелка вверх
+            case 258: if (cursorY < canvas.getHeight()-2) cursorY++; break;    // стрелка вниз
+            case 260: if (cursorX > 1) cursorX--; break;                      // стрелка влево
+            case 261: if (cursorX < canvas.getWidth()-2) cursorX++; break;     // стрелка вправо
 
             case '1': currentColorIdx = 0; currentTool->setColor(colorPalette[0], Color::Black()); newStatus = "Color: Black"; statusChanged = true; break;
             case '2': currentColorIdx = 1; currentTool->setColor(colorPalette[1], Color::Black()); newStatus = "Color: Red"; statusChanged = true; break;
@@ -312,27 +307,33 @@ int main() {
             }
         }
 
-        // clearCursorAt(prevCursorX, prevCursorY, canvas);
+        // Очистка старого курсора
+        clearCursorAt(prevCursorX, prevCursorY, canvas);
         
+        // Если холст изменился - перерисовка
         if (canvasChanged) {
             renderCanvasOnly(canvas);
         }
-        clearCursorAt(prevCursorX, prevCursorY, canvas);
+
+        // Обновление статуса
         if (statusChanged && !newStatus.empty()) {
-            updateStatusOnly(canvas.getHeight(), canvas.getWidth(), // ДОБАВЛЕН canvas.getWidth()
-                        currentTool->getName(), 
-                        cursorX, cursorY, 
-                        history->getUndoStackSize(), 
-                        history->getRedoStackSize(), 
-                        newStatus, currentColorIdx, 
-                        canvas.getActiveLayerIndex());
+            updateStatusOnly(canvas.getHeight(), canvas.getWidth(),
+                            currentTool->getName(), 
+                            cursorX, cursorY, 
+                            history->getUndoStackSize(), 
+                            history->getRedoStackSize(), 
+                            newStatus, currentColorIdx, 
+                            canvas.getActiveLayerIndex());
         }
-        
+
+        // Отрисовка нового курсора
         drawCursorAt(cursorX, cursorY, canvas);
+        
+        // Перемещение терминального курсора
+        std::cout << "\033[" << (cursorY + 2) << ";" << (cursorX + 1) << "H" << std::flush;
         
         prevCursorX = cursorX;
         prevCursorY = cursorY;
-        std::cout << "\033[" << (cursorY + 1) << ";" << (cursorX + 1) << "H" << std::flush;
     }
 
     Terminal::clear();

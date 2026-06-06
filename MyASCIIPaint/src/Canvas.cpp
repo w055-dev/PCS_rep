@@ -36,6 +36,20 @@ void Canvas::initializeWithGrid() {
     layer->setCell(width-1, height-1, Cell('+', Color::Cyan(), Color::Black()));
 }
 
+Cell Canvas::getCompositeCell(int x, int y) const {
+    // Проход по слоям сверху вниз, возвращение первой непустой ячейки
+    for (int i = static_cast<int>(layers.size()) - 1; i >= 0; i--) {
+        if (layers[i] && layers[i]->isVisible()) {
+            Cell cell = layers[i]->getCell(x, y);
+            if (!cell.isEmpty()) {
+                return cell;
+            }
+        }
+    }
+    // Если все слои пустые — возвращаем пустую ячейку
+    return Cell(' ', Color::White(), Color::Black());
+}
+
 void Canvas::render() {
     Layer* activeLayer = getActiveLayer();
     if (!activeLayer) return;

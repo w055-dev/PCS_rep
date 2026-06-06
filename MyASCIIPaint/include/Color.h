@@ -16,6 +16,7 @@ public:
     int getAnsiCode() const;
     void setAnsiCode(int code);
     std::string toAnsi() const;
+    std::string toAnsiBg() const;
     
     static Color Black();
     static Color Red();

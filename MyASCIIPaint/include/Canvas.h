@@ -41,6 +41,8 @@ public:
         }
         return nullptr;
     }
+
+    Cell getCompositeCell(int x, int y) const;
     
     void applyCommand(class Command* cmd);
     bool exportTo(Exporter* exporter, const std::string& path);

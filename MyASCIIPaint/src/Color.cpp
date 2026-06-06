@@ -13,6 +13,15 @@ std::string Color::toAnsi() const {
     return "\033[" + std::to_string(ansiCode) + "m";
 }
 
+std::string Color::toAnsiBg() const {
+    if (ansiCode >= 90 && ansiCode <= 97) {
+        return "\033[" + std::to_string(ansiCode + 10) + "m";  // 100-107
+    } else if (ansiCode >= 30 && ansiCode <= 37) {
+        return "\033[" + std::to_string(ansiCode + 10) + "m";  // 40-47
+    }
+    return "\033[40m";  // Чёрный фон по умолчанию
+}
+
 Color Color::Black()   { return Color(30); }
 Color Color::Red()     { return Color(31); }
 Color Color::Green()   { return Color(32); }

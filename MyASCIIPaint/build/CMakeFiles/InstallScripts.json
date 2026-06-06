@@ -1,9 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/cmake_install.cmake",
-		"C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/_deps/catch2-build/cmake_install.cmake",
-		"C:/Users/Talent/Desktop/PCS_rep/MyASCIIPaint/build/_deps/catch2-build/src/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

@@ -21,6 +21,8 @@ public:
     void setBackground(const Color& bg);
     bool isEmpty() const;
     bool equals(const Cell& other) const;
+    std::string toAnsi() const;
+    std::string toAnsiCursor() const;
 };
 
 #endif
