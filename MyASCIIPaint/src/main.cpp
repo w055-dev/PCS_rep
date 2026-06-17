@@ -281,14 +281,29 @@ int main() {
                 if (ASCPImporter::validate("project.ascp")) {
                     Canvas* loaded = ASCPImporter::importFrom("project.ascp", history);
                     if (loaded) {
-                        Layer* src = loaded->getActiveLayer();
-                        Layer* dst = canvas.getActiveLayer();
-                        if (src && dst) {
-                            int h = std::min(loaded->getHeight(), canvas.getHeight());
-                            int w = std::min(loaded->getWidth(), canvas.getWidth());
-                            for (int y = 0; y < h; y++) {
-                                for (int x = 0; x < w; x++) {
-                                    dst->setCell(x, y, src->getCell(x, y));
+                        // Удаление слоев
+                        int layerCount = canvas.getLayerCount();
+                        for (int i = layerCount - 1; i >= 0; i--) {
+                            canvas.removeLayer(i);
+                        }
+                        
+                        // Добавление слоев из загруженного холста
+                        for (int l = 0; l < loaded->getLayerCount(); l++) {
+                            canvas.addLayer();
+                            Layer* dst = canvas.getActiveLayer();
+                            Layer* src = loaded->getLayer(l);
+                            
+                            if (src && dst) {
+                                dst->setName(src->getName());
+                                dst->setVisible(src->isVisible());
+                                
+                                int maxY = std::min(loaded->getHeight(), canvas.getHeight());
+                                int maxX = std::min(loaded->getWidth(), canvas.getWidth());
+                                
+                                for (int y = 0; y < maxY; y++) {
+                                    for (int x = 0; x < maxX; x++) {
+                                        dst->setCell(x, y, src->getCell(x, y));
+                                    }
                                 }
                             }
                         }

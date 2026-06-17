@@ -210,18 +210,15 @@ Canvas* ASCPImporter::importFrom(const std::string& path, [[maybe_unused]] Histo
             newCanvas->removeLayer(0);
         }
         
-        Layer* layer = newCanvas->getActiveLayer();
-        if (!layer) {
-            delete newCanvas;
-            return nullptr;
-        }
-        
-        layer->setVisible(true);
-        layer->setName("Imported Layer");
-        
         // Парсим слои
         if (j.contains("layers") && j["layers"].is_array()) {
+            int layerIndex = 0;
             for (const auto& layerJson : j["layers"]) {
+                newCanvas -> addLayer();
+                Layer* layer = newCanvas->getActiveLayer();
+                if (!layer){
+                    continue;
+                }
                 // Восстанавливаем видимость и имя
                 if (layerJson.contains("visible")) {
                     layer->setVisible(layerJson["visible"].get<bool>());
@@ -267,6 +264,8 @@ Canvas* ASCPImporter::importFrom(const std::string& path, [[maybe_unused]] Histo
         // Устанавливаем активный слой
         if (activeLayerIdx >= 0 && activeLayerIdx < newCanvas->getLayerCount()) {
             newCanvas->setActiveLayer(activeLayerIdx);
+        } else if (newCanvas->getLayerCount() > 0){
+            newCanvas->setActiveLayer(0);
         }
         
         return newCanvas;
